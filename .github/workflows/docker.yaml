@@ -28,6 +28,7 @@ jobs:
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
+          platforms: linux/amd64,linux/arm64
           context: .
           push: true
-          tags: ghcr.io/${{ env.GITHUB_REPOSITORY }}:${{ env.GITHUB_REF }}
+          tags: ghcr.io/${{ github.repository }}:${{ github.ref }}
