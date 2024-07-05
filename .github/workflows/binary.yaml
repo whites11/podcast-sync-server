@@ -27,7 +27,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}
-          asset_name: /podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}
-          tag: ${{ github.ref }}
           overwrite: true
-          body: "Release ${{ github.ref }}"
+          body: "Release ${{ env.GITHUB_REF }}"
