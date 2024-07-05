@@ -8,6 +8,8 @@ jobs:
   build:
     name: build binary for ${{ matrix.os }}/${{ matrix.arch }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         arch: [ "amd64", "arm64" ]
