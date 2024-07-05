@@ -20,12 +20,14 @@ jobs:
           ref: ${{ github.ref }}
       - name: compile and release
         run: |
-          mkdir target
-          GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}
+          mkdir -p target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}
+          GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}/
+          cp LICENSE target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}/
+          tar -czf target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}.tar.gz target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}/
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}
+          file: target/podcast-sync-server-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
           overwrite: true
           body: "Release ${{ env.GITHUB_REF }}"
