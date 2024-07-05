@@ -24,6 +24,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Write release version
+        run: |
+          GITHUB_REF_NAME="${{ env.GITHUB_REF }}"
+          VERSION=${GITHUB_REF_NAME#v}
+          echo Version: $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -31,4 +38,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ env.GITHUB_REF }}
+          tags: ghcr.io/${{ github.repository }}:${{ env.VERSION }}
