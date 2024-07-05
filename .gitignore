@@ -1,0 +1,5 @@
+*.iml
+.idea
+secrets.json
+podcast-sync-server
+tmp
